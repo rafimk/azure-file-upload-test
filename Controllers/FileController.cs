@@ -39,5 +39,21 @@ public class FileController: ControllerBase
         }
 
         return Ok("File Uploaded Successfully");  
+    }
+
+    [HttpGet]
+    public async Task<IActionResult> DownloadAsync()
+    {
+        string connectionString = "DefaultEndpointsProtocol=https;AccountName=kmccfileupload;AccountKey=h+PFVsQg8A6A9S43/lDDABLNO6GyzGTmGRgH6op5KHwXo85jyBrD7XivcCtWvZvZJHNFIp84my43+AStWH/JCw==;EndpointSuffix=core.windows.net";
+        string containerName = "images";
+        // getting blob storage url from database or other sources, omitted for simplicity
+        BlobServiceClient blobServiceClient = new BlobServiceClient(connectionString);
+        BlobContainerClient containerClient = blobServiceClient.GetBlobContainerClient(containerName);
+        string fileName =  "Set2-A.jpg";
+        BlobClient blobClient = containerClient.GetBlobClient(fileName);
+        using var stream = new MemoryStream();
+        await blobClient.DownloadToAsync(stream);
+        stream.Position = 0;
+        return File(stream, "image/jpg", fileName);
     }   
 }
