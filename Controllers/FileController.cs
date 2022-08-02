@@ -44,6 +44,13 @@ public class FileController: ControllerBase
     [HttpGet]
     public async Task<IActionResult> DownloadAsync()
     {
+
+        // === Type ===
+        // image/jpeg
+        // image/png
+        // application/pdf
+        // FileStrem.CopyToAsync(memory)
+
         string connectionString = "DefaultEndpointsProtocol=https;AccountName=kmccfileupload;AccountKey=h+PFVsQg8A6A9S43/lDDABLNO6GyzGTmGRgH6op5KHwXo85jyBrD7XivcCtWvZvZJHNFIp84my43+AStWH/JCw==;EndpointSuffix=core.windows.net";
         string containerName = "images";
         // getting blob storage url from database or other sources, omitted for simplicity
