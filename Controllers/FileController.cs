@@ -25,7 +25,7 @@ public class FileController: ControllerBase
         BlobServiceClient blobServiceClient = new BlobServiceClient(connectionString);
         BlobContainerClient containerClient = blobServiceClient.GetBlobContainerClient(containerName);
 
-        string fileName = files.Name;
+        string fileName =  files.FileName;
         BlobClient blobClient = containerClient.GetBlobClient(fileName);
 
         if (files.Length > 0)
